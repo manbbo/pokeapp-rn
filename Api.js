@@ -33,6 +33,7 @@ export function getList ({navigation, route}) {
 
      function handleRefresh() {
         setLoading(true)
+        offset = offset
         fetch("https://pokeapi.co/api/v2/pokemon?limit=50&offset="+offset)
         .then((response) => response.json())
       .then((json) => setData(json))
@@ -81,15 +82,15 @@ export function getList ({navigation, route}) {
                 />
             </SafeAreaView>
           )}
-                <View style={{ flexDirection:'row', alignSelf: 'center' }}>
+            <View style={{ flexDirection:'row', alignSelf: 'center' }}>
                 <Button title={"Previous"} disabled={offset<=0? true : false} onPress={() => {
                     offset = offset-50
-                        handleRefresh
+                        handleRefresh()
                 }}/><Button title={"Next"} disabled={offset>=data.count? true : false} onPress={() => {
                     offset = offset+50
-                        handleRefresh
+                        handleRefresh()
                 }}/>
-                </View>
+            </View>
         </View>
       )
 
