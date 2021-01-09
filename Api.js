@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState  } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View, Image, Text, FlatList, SafeAreaView , ScrollView } from 'react-native';
+import { View, Image, Text, FlatList, Button, SafeAreaView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Pokemon from './views/Pokemon.js'
 
@@ -22,7 +22,7 @@ export function getList ({navigation, route}) {
     const onEnableScroll = (value) => {
         enableScrollViewScroll: value
       };
-      
+
     useEffect (() =>  {
         fetch("https://pokeapi.co/api/v2/pokemon?limit=50&offset=0")
         .then((response) => response.json())
@@ -42,11 +42,11 @@ export function getList ({navigation, route}) {
 
     return (
 
-        <View style={{ padding: 2, paddingBottom: 100 }}>
+        <View style={{ padding: 2, paddingBottom: 80 }}>
         <StatusBar style="auto" />
           {isLoading ? <Text style={{ padding: 20 }}>Loading...</Text> : 
-          ( <SafeAreaView  style={{ flexDirection: 'column', paddingTop: 50}}>
-              <Text style={{ fontSize: 18, color: 'green', textAlign: 'center', paddingBottom: 20}}>Pokemon List:</Text>
+          ( <SafeAreaView  style={{ flexDirection: 'column', paddingTop: 50, alignSelf: 'center'}}>
+              <Text style={{ fontSize: 30, color: 'green', fontWeight: "bold",textAlign: 'center', paddingBottom: 20}}>Pokemon List:</Text>
                   <FlatList
                   scrollEnabled={enableScrollViewScroll}
                   onRefresh={
@@ -66,11 +66,6 @@ export function getList ({navigation, route}) {
                     keyExtractor={({ id }, index) => id}
                     initialNumToRender={50}
                     maxToRenderPerBatch={50}
-                    onEndReached={
-                        offset = offset+50,
-                        handleRefresh
-                    }
-                    onEndThreshold={0}
                     renderItem={({ item }) => (
                             <TouchableOpacity onPress={() =>
                                 navigation.navigate('Details', {url: item.url, Img: Img})
@@ -86,6 +81,15 @@ export function getList ({navigation, route}) {
                 />
             </SafeAreaView>
           )}
+                <View style={{ flexDirection:'row', alignSelf: 'center' }}>
+                <Button title={"Previous"} disabled={offset<=0? true : false} onPress={() => {
+                    offset = offset-50
+                        handleRefresh
+                }}/><Button title={"Next"} disabled={offset>=data.count? true : false} onPress={() => {
+                    offset = offset+50
+                        handleRefresh
+                }}/>
+                </View>
         </View>
       )
 
