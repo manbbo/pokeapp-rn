@@ -7,16 +7,19 @@ import { NavigationContainer } from '@react-navigation/native';
 export function Poke ( props ) {
 
     const [data, setData] = useState([]);
-
-    var baseImageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
-    var baseTypeUrl = "https://pokeapi.co/api/v2/pokemon/"
+    const [types, setTypes] = useState([]);
 
     useEffect (() =>  {
       fetch(props.url)
         .then((response) => response.json())
-      .then((json) => setData(json))
+      .then((json) => {
+        setData(json)
+        setTypes(json.types)
+      })
       .catch((error) => console.error(error)).done()
     }, [])
+
+    var baseImageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
 
     return (
         <View style={{ flexDirection: "row", alignItems:"center"}}>
@@ -26,8 +29,9 @@ export function Poke ( props ) {
             
             <View style={{ flexDirection: "row", alignItems:"center" }}>
                 <View style={{ flexDirection: "column", alignItems:"center", height: 100, width:150 }}>
-                    <Text>{props.name}</Text>
-                    <Text>{data.name}</Text>
+                    <Text>{data.id + ". " + props.name}</Text>
+                    
+                    <Text>Type: {types[0].type.name.toUpperCase()}</Text>
                 </View>
             </View>
         </View>

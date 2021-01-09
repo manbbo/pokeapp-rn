@@ -19,7 +19,7 @@ export function getList ({navigation, route}) {
     let enableScrollViewScroll = true
 
     useEffect (() =>  {
-        fetch("https://pokeapi.co/api/v2/pokemon?limit=200&offset=0")
+        fetch("https://pokeapi.co/api/v2/pokemon")
         .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))

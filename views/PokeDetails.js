@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, TouchableOpacity, Button } from 'react-native';
+import { View, Image, Text, FlatList, SafeAreaView , TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
+
+import { Ionicons } from '@expo/vector-icons';
 
 export default function PokemonDetails ({navigation :{goBack}, route}) {
     const [isLoading, setLoading] = useState(true);
@@ -19,50 +21,20 @@ export default function PokemonDetails ({navigation :{goBack}, route}) {
     return (
         <View style={{ marginTop: 30 }}>
             <StatusBar style="auto" />
-            
-            <Button title={"CHANGE"} onPress={() => goBack()}/>
-            
+            <TouchableOpacity
+                style={{paddingLeft: 10}}
+                onPress={() => goBack()} >
+                <Ionicons name="md-arrow-back" size={26} color="#000" />
+            </TouchableOpacity>
             <View style={{ padding: 2 }}>
-                <StatusBar style="auto" />
+                
                 {isLoading ? <Text style={{ padding: 20 }}>Loading...</Text> : 
                 ( <SafeAreaView  style={{ flexDirection: 'column', paddingTop: 50}}>
-                    <Text style={{ fontSize: 18, color: 'green', textAlign: 'center', paddingBottom: 20}}>Pokemon List:</Text>
-                        <FlatList
-                        scrollEnabled={enableScrollViewScroll}
-                        onRefresh={
-                            handleRefresh
-                        }
-                        refreshing = {isLoading}
-                            onTouchStart={() => {
-                                onEnableScroll( false );
-                            }}
-                            onMomentumScrollEnd={() => {
-                                onEnableScroll( true );
-                            }}
-                            style={{ paddingTop: 20 }}
-                            data={data.results}
-                            nestedScrollEnabled={true} 
-                            marginBottom={50}
-                            keyExtractor={({ id }, index) => id}
-                            initialNumToRender={100}
-                            maxToRenderPerBatch={100}
-                            onEndThreshold={0}
-                            renderItem={({ item }) => (
-                                    <TouchableOpacity onPress={() =>
-                                        navigation.navigate('Details', {url: item.url})
-                                    }>
-                                        <View>
-                                            <Pokemon.Poke name={item.name.toUpperCase()} 
-                                            Img = {Img} 
-                                            url = {item.url}/>
-                                        </View>
-                                    </TouchableOpacity>
-                                )
-                                }
-                        />
-                    </SafeAreaView>
+                    <Text style={{ fontSize: 18, color: 'green', textAlign: 'center', paddingBottom: 20}}>{data.name}</Text>
+                        
+                   </SafeAreaView>
                 )}
-                </View>
+            </View>
         </View>
     )
   }
