@@ -33,8 +33,8 @@ export function Poke ( props ) {
                 <Text>Loading...</Text>
               </View>  : 
               <View style={{ flexDirection: "row", alignItems:"center" }}>
-                  <View style={{ flexDirection: "column", alignItems:"center", height: 100, width:150 }}>
-                      <Text>{data.id + ". " + props.name}</Text>
+                  <View style={{ flexDirection: "column", alignItems:"center", height: 100, width:200 }}>
+                      <Text style={{ fontSize: 20, color: 'black' }}>{data.id + ". " + props.name}</Text>
                       <Text>Type: {data.types[0].type.name.toUpperCase()}</Text>
                   </View>
               </View>

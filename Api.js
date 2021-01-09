@@ -6,7 +6,7 @@ import * as Pokemon from './views/Pokemon.js'
 
 export function Img (props) {
     return (
-        <Image style={{width: 110, height: 110}} 
+        <Image style={{width: 140, height: 180}} 
         source = {{ 
                 uri: props.url 
             }} />
@@ -68,7 +68,7 @@ export function getList ({navigation, route}) {
                     onEndThreshold={0}
                     renderItem={({ item }) => (
                             <TouchableOpacity onPress={() =>
-                                navigation.navigate('Details', {url: item.url})
+                                navigation.navigate('Details', {url: item.url, Img: Img})
                             }>
                                 <View>
                                     <Pokemon.Poke name={item.name.toUpperCase()} 
