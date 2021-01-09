@@ -19,6 +19,10 @@ export function getList ({navigation, route}) {
     let enableScrollViewScroll = true
     var offset = 0
 
+    const onEnableScroll = (value) => {
+        enableScrollViewScroll: value
+      };
+      
     useEffect (() =>  {
         fetch("https://pokeapi.co/api/v2/pokemon?limit=50&offset=0")
         .then((response) => response.json())
@@ -26,10 +30,6 @@ export function getList ({navigation, route}) {
       .catch((error) => console.error(error))
       .finally(() => setLoading(false)).done()
     }, [])
-
-    const onEnableScroll = (value) => {
-        enableScrollViewScroll: value
-      };
 
      function handleRefresh() {
         setLoading(true)
