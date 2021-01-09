@@ -17,9 +17,10 @@ export function getList ({navigation, route}) {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     let enableScrollViewScroll = true
+    var offset = 0
 
     useEffect (() =>  {
-        fetch("https://pokeapi.co/api/v2/pokemon")
+        fetch("https://pokeapi.co/api/v2/pokemon?limit=50&offset=0")
         .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
@@ -32,7 +33,7 @@ export function getList ({navigation, route}) {
 
      function handleRefresh() {
         setLoading(true)
-        fetch("https://pokeapi.co/api/v2/pokemon?limit=200&offset=0")
+        fetch("https://pokeapi.co/api/v2/pokemon?limit=50&offset="+offset)
         .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
@@ -41,7 +42,7 @@ export function getList ({navigation, route}) {
 
     return (
 
-        <View style={{ padding: 2 }}>
+        <View style={{ padding: 2, paddingBottom: 100 }}>
         <StatusBar style="auto" />
           {isLoading ? <Text style={{ padding: 20 }}>Loading...</Text> : 
           ( <SafeAreaView  style={{ flexDirection: 'column', paddingTop: 50}}>
@@ -63,8 +64,12 @@ export function getList ({navigation, route}) {
                     nestedScrollEnabled={true} 
                     marginBottom={50}
                     keyExtractor={({ id }, index) => id}
-                    initialNumToRender={100}
-                    maxToRenderPerBatch={100}
+                    initialNumToRender={50}
+                    maxToRenderPerBatch={50}
+                    onEndReached={
+                        offset = offset+50,
+                        handleRefresh
+                    }
                     onEndThreshold={0}
                     renderItem={({ item }) => (
                             <TouchableOpacity onPress={() =>
