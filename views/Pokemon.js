@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { View, Text, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,39 +9,21 @@ export function Poke ( props ) {
     const [data, setData] = useState([]);
 
     var baseImageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
-    var baseTypeUrl = "https://pokeapi.co/api/v2/type/"
-
-    const Stack = createStackNavigator();
-
-    const MyStack = () => {
-      return (
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name={props.name}
-              component={PokemonDetail}
-              options={{ title: props.name.toUpperCase() }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      );
-    };
+    var baseTypeUrl = "https://pokeapi.co/api/v2/pokemon/"
 
     useEffect (() =>  {
-        fetch(baseTypeUrl + props.index)
+      fetch(props.url)
         .then((response) => response.json())
       .then((json) => setData(json))
-      .catch((error) => console.error(error))
+      .catch((error) => console.error(error)).done()
     }, [])
 
     return (
-        <TouchableOpacity /** TODO: Navigation onpress*/>
-            <View style={{ flexDirection: "row", alignItems:"center"}}>
+        <View style={{ flexDirection: "row", alignItems:"center"}}>
             <View style={{ flexDirection: "column", alignItems:"center"}}>
-
-            <props.Img url = {baseImageUrl + props.index + ".png"}/>
-            
+              <props.Img url = {baseImageUrl + data.id + ".png"}/>
             </View>
+            
             <View style={{ flexDirection: "row", alignItems:"center" }}>
                 <View style={{ flexDirection: "column", alignItems:"center", height: 100, width:150 }}>
                     <Text>{props.name}</Text>
@@ -48,6 +31,5 @@ export function Poke ( props ) {
                 </View>
             </View>
         </View>
-        </TouchableOpacity>
     )
   }

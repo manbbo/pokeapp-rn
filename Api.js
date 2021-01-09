@@ -1,8 +1,8 @@
 import React, { Component, useEffect, useState  } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { View, Image, Text, FlatList, SafeAreaView , ScrollView } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Pokemon from './views/Pokemon.js'
-
-export var basePokemonUrl = "https://pokeapi.co/api/v2/pokemon"; // list of all pokemons
 
 export function Img (props) {
     return (
@@ -13,21 +13,17 @@ export function Img (props) {
     )
 }
 
-export function getList (props) {
+export function getList ({navigation, route}) {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     let enableScrollViewScroll = true
 
-    console.log(data);
-
-    const finalUrl = (props.pokemon != "")? basePokemonUrl + props.pokemon : basePokemonUrl
-
     useEffect (() =>  {
-        fetch(finalUrl)
+        fetch("https://pokeapi.co/api/v2/pokemon?limit=200&offset=0")
         .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
-      .finally(() => setLoading(false))
+      .finally(() => setLoading(false)).done()
     }, [])
 
     const onEnableScroll = (value) => {
@@ -36,20 +32,20 @@ export function getList (props) {
 
      function handleRefresh() {
         setLoading(true)
-        fetch(finalUrl)
+        fetch("https://pokeapi.co/api/v2/pokemon?limit=200&offset=0")
         .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
-      .finally(() => setLoading(false))
+      .finally(() => setLoading(false)).done()
       }
 
     return (
 
         <View style={{ padding: 2 }}>
+        <StatusBar style="auto" />
           {isLoading ? <Text style={{ padding: 20 }}>Loading...</Text> : 
           ( <SafeAreaView  style={{ flexDirection: 'column', paddingTop: 50}}>
               <Text style={{ fontSize: 18, color: 'green', textAlign: 'center', paddingBottom: 20}}>Pokemon List:</Text>
-              
                   <FlatList
                   scrollEnabled={enableScrollViewScroll}
                   onRefresh={
@@ -71,11 +67,15 @@ export function getList (props) {
                     maxToRenderPerBatch={100}
                     onEndThreshold={0}
                     renderItem={({ item }) => (
-                        <View>
-                            <Pokemon.Poke name={item.name.toUpperCase()} 
-                            Img = {Img} 
-                            index = {item.url.charAt(item.url.length-2)}/>
-                        </View>
+                            <TouchableOpacity onPress={() =>
+                                navigation.navigate('Details', {url: item.url})
+                            }>
+                                <View>
+                                    <Pokemon.Poke name={item.name.toUpperCase()} 
+                                    Img = {Img} 
+                                    url = {item.url}/>
+                                </View>
+                            </TouchableOpacity>
                         )
                         }
                 />
@@ -83,4 +83,5 @@ export function getList (props) {
           )}
         </View>
       )
+
 }
