@@ -5,19 +5,19 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 
 export function Poke ( props ) {
-
-    const [data, setData] = useState([]);
-    const [types, setTypes] = useState([]);
-
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  
     useEffect (() =>  {
       fetch(props.url)
         .then((response) => response.json())
       .then((json) => {
         setData(json)
-        setTypes(json.types)
       })
-      .catch((error) => console.error(error)).done()
+      .catch((error) => console.error(error)).finally(() => {setLoading(false)}).done()
     }, [])
+
+    console.log(data)
 
     var baseImageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
 
@@ -27,13 +27,18 @@ export function Poke ( props ) {
               <props.Img url = {baseImageUrl + data.id + ".png"}/>
             </View>
             
-            <View style={{ flexDirection: "row", alignItems:"center" }}>
-                <View style={{ flexDirection: "column", alignItems:"center", height: 100, width:150 }}>
-                    <Text>{data.id + ". " + props.name}</Text>
-                    
-                    <Text>Type: {types[0].type.name.toUpperCase()}</Text>
-                </View>
-            </View>
+            {
+              isLoading? 
+              <View>
+                <Text>Loading...</Text>
+              </View>  : 
+              <View style={{ flexDirection: "row", alignItems:"center" }}>
+                  <View style={{ flexDirection: "column", alignItems:"center", height: 100, width:150 }}>
+                      <Text>{data.id + ". " + props.name}</Text>
+                      <Text>Type: {data.types[0].type.name.toUpperCase()}</Text>
+                  </View>
+              </View>
+            }
         </View>
     )
   }

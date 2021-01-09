@@ -8,14 +8,17 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function PokemonDetails ({navigation :{goBack}, route}) {
     const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
-
+  const [data, setData] = useState([]);
+  
     useEffect (() =>  {
-        fetch(route.url)
+      fetch(route.url)
         .then((response) => response.json())
-      .then((json) => setData(json))
+      .then((json) => {
+        setData(json)
+      })
       .catch((error) => console.error(error))
-      .finally(() => setLoading(false)).done()
+      .finally(() => {setLoading(false)})
+      .done()
     }, [])
 
     return (
