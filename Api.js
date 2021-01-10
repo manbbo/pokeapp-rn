@@ -17,24 +17,33 @@ export function getList ({navigation, route}) {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     let enableScrollViewScroll = true
-    var offset = 0
+    const [offset, setOffset] = useState(0)
 
     const onEnableScroll = (value) => {
         enableScrollViewScroll: value
       };
 
+    const handleOffset = (value) => {
+        setOffset(value)
+        setLoading(true)
+    }
+
     useEffect (() =>  {
-        fetch("https://pokeapi.co/api/v2/pokemon?limit=50&offset=0")
-        .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false)).done()
-    }, [])
+
+        if (isLoading) {
+            fetch("https://pokeapi.co/api/v2/pokemon?limit=21&offset="+offset)
+            .then((response) => response.json())
+        .then((json) => setData(json))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false)).done()
+        }
+    })
 
      function handleRefresh() {
         setLoading(true)
-        offset = offset
-        fetch("https://pokeapi.co/api/v2/pokemon?limit=50&offset="+offset)
+        //offset = offset+20
+        
+        fetch("https://pokeapi.co/api/v2/pokemon?limit=21&offset="+offset)
         .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
@@ -43,17 +52,17 @@ export function getList ({navigation, route}) {
 
     return (
 
-        <View style={{ padding: 2, paddingBottom: 80 }}>
+        <View style={{ paddingBottom: 80 }}>
         <StatusBar style="auto" />
           {isLoading ? <Text style={{ padding: 20 }}>Loading...</Text> : 
           ( <SafeAreaView  style={{ flexDirection: 'column', paddingTop: 50, alignSelf: 'center'}}>
-              <Text style={{ fontSize: 30, color: 'green', fontWeight: "bold",textAlign: 'center', paddingBottom: 20}}>Pokemon List:</Text>
+              <Text style={{ fontSize: 30, color: 'green', fontWeight: "bold",textAlign: 'center', paddingBottom: 20}}>Pokemon List Page: {(offset/20) + 1}</Text>
                   <FlatList
-                  scrollEnabled={enableScrollViewScroll}
-                  onRefresh={
-                      handleRefresh
-                  }
-                  refreshing = {isLoading}
+                    scrollEnabled={enableScrollViewScroll}
+                    onRefresh={
+                        handleRefresh 
+                    }
+                    refreshing = {isLoading}
                      onTouchStart={() => {
                         onEnableScroll( false );
                     }}
@@ -63,10 +72,10 @@ export function getList ({navigation, route}) {
                     style={{ paddingTop: 20 }}
                     data={data.results}
                     nestedScrollEnabled={true} 
-                    marginBottom={50}
-                    keyExtractor={({ id }, index) => id}
-                    initialNumToRender={50}
-                    maxToRenderPerBatch={50}
+                    marginBottom={20}
+                    keyExtractor={(item, index) => index.toString()}
+                    initialNumToRender={21}
+                    maxToRenderPerBatch={21}
                     renderItem={({ item }) => (
                             <TouchableOpacity onPress={() =>
                                 navigation.navigate('Details', {url: item.url, Img: Img})
@@ -78,17 +87,15 @@ export function getList ({navigation, route}) {
                                 </View>
                             </TouchableOpacity>
                         )
-                        }
+                    }
                 />
             </SafeAreaView>
           )}
             <View style={{ flexDirection:'row', alignSelf: 'center' }}>
                 <Button title={"Previous"} disabled={offset<=0? true : false} onPress={() => {
-                    offset = offset-50
-                        handleRefresh()
+                    handleOffset(offset-20)
                 }}/><Button title={"Next"} disabled={offset>=data.count? true : false} onPress={() => {
-                    offset = offset+50
-                        handleRefresh()
+                    handleOffset(offset+20)
                 }}/>
             </View>
         </View>

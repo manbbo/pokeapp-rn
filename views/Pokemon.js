@@ -17,8 +17,6 @@ export function Poke ( props ) {
       .catch((error) => console.error(error)).finally(() => {setLoading(false)}).done()
     }, [])
 
-    console.log(data)
-
     var baseImageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
 
     return (

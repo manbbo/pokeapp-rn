@@ -28,23 +28,23 @@ export default function PokemonDetails ({navigation :{goBack}, route}) {
 
     return (
         isLoading ? <Text style={{ padding: 20 }}>Loading...</Text> : (
-        <View style={{ marginTop: 30 }}>
+        <View style={{ marginTop: 30}}>
             <StatusBar style="auto" />
             <TouchableOpacity
                 style={{paddingLeft: 10}}
                 onPress={() => goBack()} >
                 <Ionicons name="md-arrow-back" size={26} color="#000" />
             </TouchableOpacity>
-            <View style={{ padding: 2 }}>
+            <View >
                 <View  style={{ flexDirection: 'column', paddingTop: 50}}>
                     <Text style={{ fontSize: 35, color: 'green', textAlign: 'center', fontWeight: "bold", paddingBottom: 20}}>
                         {data.name.toUpperCase()}
                     </Text>
-                    <View style={{ flexDirection: "column", alignItems:"center"}}>
+                    <View style={{ flexDirection: "column", alignItems:"center", alignSelf: 'center'}}>
                         <route.params.Img url ={data.sprites.front_default}/>
                         <Text style={{ marginTop: 10,fontSize: 20, color: 'black', textAlign: 'center' }}>Types: {data.types[0].type.name.toUpperCase() + (data.types[1].type.name != null? ", " + data.types[1].type.name.toUpperCase() : null)}</Text>
                         <Text style={{ marginTop: 30,fontSize: 17, color: 'black', textAlign: 'center' }}>List of Attacks: </Text>
-                        <SafeAreaView  style={{ flexDirection: 'column', height: 380}}>
+                        <SafeAreaView  style={{ marginTop: 20, flexDirection: 'column', width: 200, height: 200, borderColor:'black', borderWidth:1, borderTopWidth:1,  borderBottomRight:1, borderTopLeft:1}}>
                             <FlatList
                                 scrollEnabled={enableScrollViewScroll}
                                 refreshing = {isLoading}
@@ -56,8 +56,7 @@ export default function PokemonDetails ({navigation :{goBack}, route}) {
                                     }}
                                     data={data.moves}
                                     nestedScrollEnabled={true} 
-                                    marginBottom={50}
-                                    keyExtractor={({ id }, index) => id}
+                                    keyExtractor={(item, index) => index.toString()}
                                     renderItem={({ item }) => (
                                             
                                                 <View>
