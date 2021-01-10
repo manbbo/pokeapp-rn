@@ -31,7 +31,7 @@ export function getList ({navigation, route}) {
     useEffect (() =>  {
 
         if (isLoading) {
-            fetch("https://pokeapi.co/api/v2/pokemon?limit=21&offset="+offset)
+            fetch("https://pokeapi.co/api/v2/pokemon?limit=20&offset="+offset)
             .then((response) => response.json())
         .then((json) => setData(json))
         .catch((error) => console.error(error))
@@ -43,7 +43,7 @@ export function getList ({navigation, route}) {
         setLoading(true)
         //offset = offset+20
         
-        fetch("https://pokeapi.co/api/v2/pokemon?limit=21&offset="+offset)
+        fetch("https://pokeapi.co/api/v2/pokemon?limit=20&offset="+offset)
         .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))
