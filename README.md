@@ -2,7 +2,7 @@
 
 <!--![](Thumbnail.png)-->
 
-> Pokedex RN is a simple Pokedex made in React Native that shows all available pokemons in [PokeAPI.co](https://pokeapi.co/), as some stats such as Type, Name and their Attacks.
+> Pokedex RN is a simple Pokedex made in React Native that shows all available pokemons in [PokeAPI.co](https://pokeapi.co/), as some stats such as Type, Name and their Attacks. The project is optmized for 16:9 smartphone displays.
 
 
 ### Show some :heart: and star the repo to support the project
@@ -11,6 +11,12 @@
 [![GitHub forks](https://img.shields.io/github/forks/manbbo/pokeapp-rn.svg?style=social&label=Fork)](https://github.com/manbbo/pokeapp-rn/fork)
 [![GitHub watchers](https://img.shields.io/github/watchers/manbbo/pokeapp-rn.svg?style=social&label=Watch)](https://github.com/manbbo/pokeapp-rn)
 [![GitHub followers](https://img.shields.io/github/followers/manbbo.svg?style=social&label=Follow)](https://github.com/manbbo)
+
+# About the project
+
+I decided to separate it into pages of 20 items, because it'd be lighter and smoother to the user to use. I also did it really simple so the user can scroll easily through them. I've put all in order (got their IDs) so you can also see their evolution and position.
+
+In addition, when you click on an Item, you're transported to the Pokémon page, where you can see their name in BOLD, its front photo, its types, and a scrollable list of attacks.
 
 # Development setup
 
