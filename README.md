@@ -14,13 +14,13 @@
 
 # About the project
 
-I decided to separate it into pages of 20 items, because it'd be lighter and smoother to the user to use. I also did it really simple so the user can scroll easily through them. I've put all in order (got their IDs) so you can also see their evolution and position.
+I decided to separate it into pages of 20 items, because it'd be lighter and smoother for the user to use. I also made it really simple so the user can scroll easily through them. I've put all in order (got their IDs) so you can also see their evolution and position.
 
-In addition, when you click on an Item, you're transported to the Pokémon page, where you can see their name in BOLD, its front photo, its types, and a scrollable list of attacks.
+In addition, when you click an Item, you're transported to the Pokémon Detailed page, where you can see their name in BOLD, its front photo, its types, and a scrollable list of attacks.
 
 # Development setup
 
-## What is needed
+## What you needed to start
 
 - Having An IDE (I recommend you using [Visual Studio Code](https://code.visualstudio.com/download), but anything serves as long as you can see and edit the code);
 - Having [NPM (Node)](https://nodejs.org/en/download/) installed on your machine;
@@ -28,7 +28,7 @@ In addition, when you click on an Item, you're transported to the Pokémon page,
 - Running ``npm install`` on your CMD with ADMIN privileges to install the dependencies needed (you can enter the folder you cloned the project, and then run ``cmd adm`` from the folder's path to instantly run CMD admin - if you're on Windows), and then ``expo run`` to run your application. It is going to open a local webpage, so you're able to run from using EXPO, and show info at CMD on how to connect your smartphone to run your app. 
 
 
-## Api Pokémon
+## Pokémon API
 
 The API can be found [here!](https://pokeapi.co/)
 
