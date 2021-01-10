@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState  } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, Image, Text, FlatList, Button, SafeAreaView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import * as Pokemon from './views/Pokemon.js'
+import * as Pokemon from './Pokemon.js'
 
 export function Img (props) {
     return (

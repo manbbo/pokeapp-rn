@@ -4,10 +4,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import PokemonDetails from './views/PokeDetails.js'
+import * as API  from './views/PokeList.js'
 
 const Stack = createStackNavigator();
 
-import * as API  from './Api.js'
 
 export default function App() {
   return (
