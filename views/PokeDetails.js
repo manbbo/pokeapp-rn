@@ -1,10 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, Image, Text, FlatList, SafeAreaView , TouchableOpacity } from 'react-native';
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
 
 import { Ionicons } from '@expo/vector-icons';
+
+function Img (props) {
+    return (
+        <Image style={{width: 140, height: 180}} 
+        source = {{ 
+                uri: props.url 
+            }} />
+    )
+  }
 
 export default function PokemonDetails ({navigation :{goBack}, route}) {
     const [isLoading, setLoading] = useState(true);
@@ -41,7 +48,7 @@ export default function PokemonDetails ({navigation :{goBack}, route}) {
                         {data.name.toUpperCase()}
                     </Text>
                     <View style={{ flexDirection: "column", alignItems:"center", alignSelf: 'center'}}>
-                        <route.params.Img url ={data.sprites.front_default}/>
+                        <Img url ={data.sprites.front_default}/>
                         <Text style={{ marginTop: 10,fontSize: 20, color: 'black', textAlign: 'center' }}>Types: {data.types[0].type.name.toUpperCase() + (data.types.length > 1 ? ", " + data.types[1].type.name.toUpperCase() : "")}</Text>
                         <Text style={{ marginTop: 30,fontSize: 17, color: 'black', textAlign: 'center' }}>List of Attacks: </Text>
                         <SafeAreaView  style={{ marginTop: 20, flexDirection: 'column', width: 200, height: 250, borderColor:'black', borderWidth:1, borderTopWidth:1,  borderBottomRight:1, borderTopLeft:1}}>

@@ -1,8 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { View, Text, TouchableOpacity } from 'react-native';
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
+import { View, Text, Image } from 'react-native';
+
+ function Img (props) {
+  return (
+      <Image style={{width: 140, height: 180}} 
+      source = {{ 
+              uri: props.url 
+          }} />
+  )
+}
 
 export function Poke ( props ) {
   const [isLoading, setLoading] = useState(true);
@@ -22,7 +28,7 @@ export function Poke ( props ) {
     return (
         <View style={{ flexDirection: "row", alignItems:"center"}}>
             <View style={{ flexDirection: "column", alignItems:"center"}}>
-              <props.Img url = {baseImageUrl + data.id + ".png"}/>
+              <Img url = {baseImageUrl + data.id + ".png"}/>
             </View>
             
             {
@@ -32,7 +38,7 @@ export function Poke ( props ) {
               </View>  : 
               <View style={{ flexDirection: "row", alignItems:"center" }}>
                   <View style={{ flexDirection: "column", alignItems:"center", height: 100, width:200 }}>
-                      <Text style={{ fontSize: 20, color: 'black' }}>{data.id + ". " + props.name}</Text>
+                      <Text style={{ fontSize: 20, color: 'black' }}>{data.id + ". " + data.name}</Text>
                       <Text>Type: {data.types[0].type.name.toUpperCase()}</Text>
                   </View>
               </View>

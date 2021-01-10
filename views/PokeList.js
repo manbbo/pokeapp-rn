@@ -1,10 +1,10 @@
-import React, { Component, useEffect, useState  } from 'react';
+import React, { useEffect, useState  } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, Image, Text, FlatList, Button, SafeAreaView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import * as Pokemon from './Pokemon.js'
+import * as Pokemon from '../models/Pokemon.js'
 
-export function Img (props) {
+function Img (props) {
     return (
         <Image style={{width: 140, height: 180}} 
         source = {{ 
@@ -78,11 +78,10 @@ export function getList ({navigation, route}) {
                     maxToRenderPerBatch={21}
                     renderItem={({ item }) => (
                             <TouchableOpacity onPress={() =>
-                                navigation.navigate('Details', {url: item.url, Img: Img})
+                                navigation.navigate('Details', {url: item.url})
                             }>
                                 <View>
-                                    <Pokemon.Poke name={item.name.toUpperCase()} 
-                                    Img = {Img} 
+                                    <Pokemon.Poke 
                                     url = {item.url}/>
                                 </View>
                             </TouchableOpacity>
