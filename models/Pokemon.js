@@ -5,7 +5,7 @@ import { View, Text, Image } from 'react-native';
 
  function Thumb (props) {
   return (
-      <Image style={{width: 140, height: 180}} 
+      <Image style={{width: 120, height: 120}} 
       source = {{ 
               uri: props.url 
           }} />
@@ -28,20 +28,20 @@ export function Poke ( props ) {
 
     return (
         <View style={{ flexDirection: "row", alignItems:"center"}}>
-            <View style={{ flexDirection: "column", alignItems:"center"}}>
-              <Thumb url = {data.sprites.front_default}/>
-            </View>
-            
             {
               /** LOADING SCREEN **/
               isLoading? 
               <View>
                 <Text>Loading...</Text>
               </View>  : 
+              
               /** INFO FROM POKEMON (FIRST PAGE) **/
               <View style={{ flexDirection: "row", alignItems:"center" }}>
-                  <View style={{ flexDirection: "column", alignItems:"center", height: 100, width:200 }}>
-                      <Text style={{ fontSize: 20, color: 'black' }}>{data.id + ". " + data.name}</Text>
+                <View style={{ flexDirection: "column", alignItems:"center"}}>
+                  <Thumb url = {data.sprites.front_default}/>
+                </View>
+                  <View style={{ flexDirection: "column", alignItems:"center", height: 100, width:170 }}>
+                      <Text style={{ fontSize: 20, color: 'black' }}>{data.id + ". " + data.name.toUpperCase()}</Text>
                       <Text>Type: {data.types[0].type.name.toUpperCase()}</Text>
                   </View>
               </View>
