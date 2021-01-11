@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { View, Text, Image } from 'react-native';
 
- function Img (props) {
+/** This page is a model item for the pokemon list, and can be considered a list item */
+
+ function Thumb (props) {
   return (
       <Image style={{width: 140, height: 180}} 
       source = {{ 
@@ -13,7 +15,8 @@ import { View, Text, Image } from 'react-native';
 export function Poke ( props ) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  
+
+  /** FETCHING DATA FROM POKEMON (DETAILED) **/
     useEffect (() =>  {
       fetch(props.url)
         .then((response) => response.json())
@@ -23,19 +26,19 @@ export function Poke ( props ) {
       .catch((error) => console.error(error)).finally(() => {setLoading(false)}).done()
     }, [])
 
-    var baseImageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
-
     return (
         <View style={{ flexDirection: "row", alignItems:"center"}}>
             <View style={{ flexDirection: "column", alignItems:"center"}}>
-              <Img url = {baseImageUrl + data.id + ".png"}/>
+              <Thumb url = {data.sprites.front_default}/>
             </View>
             
             {
+              /** LOADING SCREEN **/
               isLoading? 
               <View>
                 <Text>Loading...</Text>
               </View>  : 
+              /** INFO FROM POKEMON (FIRST PAGE) **/
               <View style={{ flexDirection: "row", alignItems:"center" }}>
                   <View style={{ flexDirection: "column", alignItems:"center", height: 100, width:200 }}>
                       <Text style={{ fontSize: 20, color: 'black' }}>{data.id + ". " + data.name}</Text>

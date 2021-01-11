@@ -7,7 +7,6 @@ import * as API  from './views/PokeList.js'
 
 const Stack = createStackNavigator();
 
-
 export default function App() {
   return (
     <NavigationContainer>
