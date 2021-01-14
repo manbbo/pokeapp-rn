@@ -25,7 +25,7 @@ In addition, when you click an Item, you're transported to the Pokémon Detailed
 - Having An IDE (I recommend you using [Visual Studio Code](https://code.visualstudio.com/download), but anything serves as long as you can see and edit the code);
 - Having [NPM (Node)](https://nodejs.org/en/download/) or [YARN](https://classic.yarnpkg.com/en/docs/install/) installed on your machine;
 - Clonning it to your machine at C:/proj or another path of your choice;
-- Running ``npm install`` on your CMD with ADMIN privileges to install the dependencies needed (you can enter the folder you cloned the project, and then run ``cmd adm`` from the folder's path to instantly run CMD admin - if you're on Windows), and then ``expo run`` to run your application. It is going to open a local webpage, so you're able to run from using EXPO, and show info at CMD on how to connect your smartphone to run your app. 
+- Running ``npm install`` on your CMD with ADMIN privileges to install the dependencies needed (you can enter the folder you cloned the project), ``npm install --global expo-cli`` to install EXPO, and then run ``cmd adm`` from the folder's path to instantly run CMD admin - if you're on Windows), and then ``expo run`` to run your application. It is going to open a local webpage, so you're able to run from using EXPO, and show info at CMD on how to connect your smartphone to run your app. 
 
 
 ## Pokémon API
